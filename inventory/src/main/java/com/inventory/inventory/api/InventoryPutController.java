@@ -17,10 +17,16 @@ public class InventoryPutController {
 
     private final InventoryCreator inventoryCreator;
 
-    @PutMapping("/api/v1/inventories/{id}")
+    @PutMapping("/api/v2/inventories/{id}")
     public Mono<ResponseEntity<?>> save(@PathVariable UUID id, @RequestBody InventoryRequest request) {
         return inventoryCreator.save(id, request.productId(), request.warehouses()).map(ResponseEntity::ok);
+    }
+
+    @PutMapping("/api/v1/inventories/{id}")
+    public Mono<ResponseEntity<?>> onlySaveInventory(@PathVariable UUID id, @RequestBody InventorySimpleRequest request) {
+        return inventoryCreator.save(id, request.productId(), request.quantity()).map(ResponseEntity::ok);
     }
 }
 
 record InventoryRequest(UUID productId, Optional<List<WarehouseRequested>> warehouses){}
+record InventorySimpleRequest(UUID productId, Integer quantity){}
