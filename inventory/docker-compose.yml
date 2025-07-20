@@ -1,0 +1,39 @@
+services:
+  inventory-db:
+    image: postgres:16
+    container_name: inventory-db
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: asdf
+    ports:
+      - "5434:5432"
+    volumes:
+      - inventory_data:/var/lib/postgresql/data
+    networks:
+      - inventory-net
+
+  inventory-service:
+    build: .
+    container_name: inventory-service
+    environment:
+      - PORT=8080
+      - SPRING_R2DBC_URL=r2dbc:postgresql://inventory-db:5432/postgres?schema=inventory_schema
+      - SPRING_R2DBC_USERNAME=postgres
+      - SPRING_R2DBC_PASSWORD=asdf
+      - SPRING_FLYWAY_ENABLED=true
+      - SPRING_FLYWAY_URL=jdbc:postgresql://inventory-db:5432/postgres?schema=inventory_schema
+      - SPRING_FLYWAY_USER=postgres
+      - SPRING_FLYWAY_PASSWORD=asdf
+    ports:
+      - "8081:8080"
+    depends_on:
+      - inventory-db
+    networks:
+      - inventory-net
+
+volumes:
+  inventory_data:
+
+networks:
+  inventory-net:
