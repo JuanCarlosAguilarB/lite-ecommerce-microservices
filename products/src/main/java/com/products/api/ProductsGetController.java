@@ -1,5 +1,7 @@
 package com.products.api;
 
+import com.products.products.domain.ProductRepository;
+import com.products.products.domain.ProductResponse;
 import com.products.products.domain.ProductSearchCriteria;
 import com.products.services.products.ProductsFinder;
 import lombok.AllArgsConstructor;
