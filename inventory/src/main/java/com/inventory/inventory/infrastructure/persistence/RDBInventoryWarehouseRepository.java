@@ -1,4 +1,4 @@
-package com.inventory.infrastructure.persistence;
+package com.inventory.inventory.infrastructure.persistence;
 
 import com.inventory.inventory.domain.InventoryWarehouse;
 import com.inventory.inventory.domain.InventoryWarehouseRepository;

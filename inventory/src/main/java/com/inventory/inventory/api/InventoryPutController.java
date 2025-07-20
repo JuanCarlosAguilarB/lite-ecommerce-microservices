@@ -1,7 +1,7 @@
-package com.inventory.api;
+package com.inventory.inventory.api;
 
-import com.inventory.services.InventoryCreator;
-import com.inventory.services.WarehouseRequested;
+import com.inventory.inventory.services.InventoryCreator;
+import com.inventory.inventory.services.WarehouseRequested;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

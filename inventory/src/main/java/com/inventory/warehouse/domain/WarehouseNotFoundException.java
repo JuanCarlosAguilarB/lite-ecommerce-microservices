@@ -1,4 +1,4 @@
-package com.inventory.inventory.domain;
+package com.inventory.warehouse.domain;
 
 import java.util.List;
 import java.util.UUID;

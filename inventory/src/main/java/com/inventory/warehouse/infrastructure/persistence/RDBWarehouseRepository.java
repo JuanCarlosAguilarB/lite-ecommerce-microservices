@@ -1,7 +1,7 @@
-package com.inventory.infrastructure.persistence;
+package com.inventory.warehouse.infrastructure.persistence;
 
-import com.inventory.inventory.domain.Warehouse;
-import com.inventory.inventory.domain.WarehouseRepository;
+import com.inventory.warehouse.domain.Warehouse;
+import com.inventory.warehouse.domain.WarehouseRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;

@@ -1,6 +1,8 @@
-package com.inventory.services;
+package com.inventory.inventory.services;
 
+import com.inventory.warehouse.domain.*;
 import com.inventory.inventory.domain.*;
+import com.inventory.warehouse.services.WarehouseValidationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

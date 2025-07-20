@@ -1,4 +1,4 @@
-package com.inventory.inventory.domain;
+package com.inventory.warehouse.domain;
 
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;

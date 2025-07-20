@@ -1,7 +1,7 @@
-package com.inventory.services;
+package com.inventory.warehouse.services;
 
-import com.inventory.inventory.domain.WarehouseNotFoundException;
-import com.inventory.inventory.domain.WarehouseRepository;
+import com.inventory.warehouse.domain.WarehouseNotFoundException;
+import com.inventory.warehouse.domain.WarehouseRepository;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
