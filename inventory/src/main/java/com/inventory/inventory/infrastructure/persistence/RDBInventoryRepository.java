@@ -31,7 +31,7 @@ public class RDBInventoryRepository implements InventoryRepository {
         return template.select(InventoryEntity.class)
                 .matching(Query.query(where("id").is(id)))
                 .one()
-                .map(inventoryEntity -> Optional.ofNullable(InventoryEntity.toDomain(inventoryEntity)))
+                .map(inventoryEntity -> Optional.of(InventoryEntity.toDomain(inventoryEntity)))
                 .switchIfEmpty(Mono.just(Optional.empty()));
     }
 
@@ -39,6 +39,15 @@ public class RDBInventoryRepository implements InventoryRepository {
     public Mono<Void> update(Inventory inventory) {
         InventoryEntity entity = toEntity(inventory);
         return template.update(entity).then();
+    }
+
+    @Override
+    public Mono<Optional<Inventory>> findByProductId(UUID productId) {
+        return template.select(InventoryEntity.class)
+                .matching(Query.query(where("product_id").is(productId)))
+                .one()
+                .map(inventoryEntity -> Optional.of(InventoryEntity.toDomain(inventoryEntity)))
+                .switchIfEmpty(Mono.just(Optional.empty()));
     }
 
     private InventoryEntity toEntity(Inventory inventory) {

@@ -11,4 +11,5 @@ public interface InventoryRepository {
     Mono<Optional<Inventory>> findById(UUID id);
     Mono<Void> update(Inventory inventory);
 
+    Mono<Optional<Inventory>> findByProductId(UUID productId);
 }
