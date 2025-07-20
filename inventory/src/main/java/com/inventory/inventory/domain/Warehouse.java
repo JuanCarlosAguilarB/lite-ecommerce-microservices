@@ -8,4 +8,11 @@ public class Warehouse {
     private String description;
     private String direction;
 
+    public Warehouse(UUID id, String name, String description, String direction) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.direction = direction;
+    }
+
 }
