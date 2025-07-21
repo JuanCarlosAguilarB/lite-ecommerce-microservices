@@ -18,11 +18,11 @@ services:
     container_name: inventory-service
     environment:
       - PORT=8080
-      - SPRING_R2DBC_URL=r2dbc:postgresql://inventory-db:5432/postgres?schema=inventory_schema
+      - SPRING_R2DBC_URL=r2dbc:postgresql://inventory-db:5434/postgres?schema=inventory_schema
       - SPRING_R2DBC_USERNAME=postgres
       - SPRING_R2DBC_PASSWORD=asdf
       - SPRING_FLYWAY_ENABLED=true
-      - SPRING_FLYWAY_URL=jdbc:postgresql://inventory-db:5432/postgres?schema=inventory_schema
+      - SPRING_FLYWAY_URL=jdbc:postgresql://inventory-db:5434/postgres?schema=inventory_schema
       - SPRING_FLYWAY_USER=postgres
       - SPRING_FLYWAY_PASSWORD=asdf
     ports:
