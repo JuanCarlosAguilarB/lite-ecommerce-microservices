@@ -44,10 +44,16 @@ public class InventoryCreator {
     private final InventoryWarehouseFactory inventoryWarehouseFactory;
     private final TransactionalOperator transactionalOperator;
 
+
+    public Mono<Void> save(UUID id, UUID productId, int quantity) {
+        return createInventory(id, productId, quantity).then();
+    }
+
     public Mono<Void> save(UUID id, UUID productId, Optional<List<WarehouseRequested>> warehouses) {
+
         return warehouses
                 .map(warehouseList -> createInventoryWithWarehouses(id, productId, warehouseList))
-                .orElse(createEmptyInventory(id, productId))
+                .orElse(createEmptyInventory(id, productId).then())
                 .as(transactionalOperator::transactional)
                 .onErrorMap(this::mapToInventoryCreationException);
     }
@@ -66,13 +72,23 @@ public class InventoryCreator {
                 );
     }
 
-    private Mono<Inventory> createInventory(UUID id, UUID productId) {
-        Inventory initialInventory = Inventory.create(id, productId, 0);
+    private Mono<Inventory> createInventory(UUID id, UUID productId, int quantity) {
+        Inventory initialInventory = Inventory.create(id, productId, quantity);
         return inventoryRepository.save(initialInventory)
                 .doOnSuccess(inventory -> log.info("Initial inventory created with ID {}", id))
                 .doOnError(error -> log.error("Failed to create initial inventory for ID {}", id, error))
                 .thenReturn(initialInventory);
     }
+
+    private Mono<Inventory> createEmptyInventory(UUID id, UUID productId) {
+        return createInventory(id, productId, 0);
+    }
+
+
+    private Mono<Inventory> createInventory(UUID id, UUID productId) {
+        return createEmptyInventory(id, productId);
+    }
+
 
     private Mono<Void> ensureWarehousesExists(List<WarehouseRequested> warehouseRequests) {
         List<UUID> warehouseIds = extractWarehouseIds(warehouseRequests);
@@ -97,9 +113,7 @@ public class InventoryCreator {
                 .then();
     }
 
-    private Mono<Void> createEmptyInventory(UUID id, UUID productId) {
-        return createInventory(id, productId).then();
-    }
+
 
     private List<UUID> extractWarehouseIds(List<WarehouseRequested> warehouseRequests) {
         return warehouseRequests.stream()
