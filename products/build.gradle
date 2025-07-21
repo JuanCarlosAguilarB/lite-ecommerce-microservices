@@ -23,6 +23,8 @@ repositories {
 	mavenCentral()
 }
 
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
@@ -41,6 +43,11 @@ dependencies {
 	testImplementation 'org.testcontainers:postgresql'
 	testImplementation 'org.testcontainers:r2dbc'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+//	swagger
+	implementation("org.springdoc:springdoc-openapi-starter-webflux-ui:2.8.9")
+	implementation("org.springdoc:springdoc-openapi-starter-webflux-api:2.8.9")
+
 }
 
 tasks.named('test') {
