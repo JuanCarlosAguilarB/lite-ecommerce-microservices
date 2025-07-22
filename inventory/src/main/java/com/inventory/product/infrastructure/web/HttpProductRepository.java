@@ -2,7 +2,9 @@ package com.inventory.product.infrastructure.web;
 
 import com.inventory.product.domain.Product;
 import com.inventory.product.domain.ProductGateway;
+import com.inventory.product.domain.ProductNotFoundException;
 import com.inventory.shared.infrastructure.web.WebClientConfig;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -28,10 +30,20 @@ public class HttpProductRepository implements ProductGateway {
     public Mono<Product> findById(UUID id) {
         return productWebClient.get()
                 .uri("/api/v1/products/{id}", id)
-                .retrieve()                                // 4xx/5xx will be exceptions
-                .bodyToMono(ProductResponse.class)
-                .map(ProductResponse::toDomain)
-                // --- recilency ---
+//                .retrieve()                                // 4xx/5xx will be exceptions
+//                .bodyToMono(ProductResponse.class)
+//                .map(ProductResponse::toDomain)
+//                // --- recilency ---
+                .exchangeToMono(resp -> {
+                    if (resp.statusCode().is2xxSuccessful()) {
+                        return resp.bodyToMono(ProductResponse.class)
+                                .map(ProductResponse::toDomain);
+                    }
+                    if (resp.statusCode().equals(HttpStatus.NOT_FOUND)) {
+                        return Mono.error(new ProductNotFoundException(id));
+                    }
+                    return resp.createException().flatMap(Mono::error);
+                })
                 .timeout(Duration.ofSeconds(3))            // fail‑fast if it takes more than 3 seconds
                 .retryWhen(
                         Retry.backoff(2, Duration.ofMillis(200))   // 2 retres with 200ms delay

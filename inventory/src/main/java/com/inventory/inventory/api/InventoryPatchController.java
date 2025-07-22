@@ -18,7 +18,7 @@ public class InventoryPatchController {
 
     private final InventoryFinder inventoryFinder;
 
-    @PatchMapping
+    @PatchMapping("/v1/inventory")
     public Mono<ResponseEntity<Map<String, Object>>> updateQuantity(
             @RequestParam(required = false) UUID productId,
             @RequestBody UpdateInventoryRequest request

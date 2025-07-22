@@ -18,7 +18,7 @@ public class InventoryGetController {
 
     private final InventoryFinder inventoryFinder;
 
-    @GetMapping
+    @GetMapping()
     public Mono<ResponseEntity<Map<String, Object>>> getByProductId(
             @RequestParam(required = false) UUID productId
     ) {
