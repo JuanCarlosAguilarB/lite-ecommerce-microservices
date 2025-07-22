@@ -1,7 +1,7 @@
 services:
-  inventory-db:
+  product-db:
     image: postgres:16
-    container_name: inventory-db
+    container_name: product-db
     environment:
       POSTGRES_DB: postgres
       POSTGRES_USER: postgres
@@ -9,31 +9,31 @@ services:
     ports:
       - "5435:5432"
     volumes:
-      - inventory_data:/var/lib/postgresql/data
+      - product_data:/var/lib/postgresql/data
     networks:
-      - inventory-net
+      - product-net
 
-  inventory-service:
+  product-service:
     build: .
-    container_name: inventory-service
+    container_name: product-service
     environment:
       - PORT=8080
-      - SPRING_R2DBC_URL=r2dbc:postgresql://inventory-db:5435/postgres?schema=inventory_schema
+      - SPRING_R2DBC_URL=r2dbc:postgresql://product-db:5432/postgres?schema=product_schema
       - SPRING_R2DBC_USERNAME=postgres
       - SPRING_R2DBC_PASSWORD=asdf
       - SPRING_FLYWAY_ENABLED=true
-      - SPRING_FLYWAY_URL=jdbc:postgresql://inventory-db:5435/postgres?schema=inventory_schema
+      - SPRING_FLYWAY_URL=jdbc:postgresql://product-db:5432/postgres?schema=product_schema
       - SPRING_FLYWAY_USER=postgres
       - SPRING_FLYWAY_PASSWORD=asdf
     ports:
       - "8080:8080"
     depends_on:
-      - inventory-db
+      - product-db
     networks:
-      - inventory-net
+      - product-net
 
 volumes:
-  inventory_data:
+  product_data:
 
 networks:
-  inventory-net:
+  product-net:
