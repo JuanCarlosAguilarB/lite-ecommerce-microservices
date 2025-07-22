@@ -1,8 +1,8 @@
-package com.products.infrastructure.persistence;
+package com.products.product.infrastructure.persistence;
 
-import com.products.products.domain.Product;
-import com.products.products.domain.ProductRepository;
-import com.products.products.domain.ProductSearchCriteria;
+import com.products.product.domain.Product;
+import com.products.product.domain.ProductRepository;
+import com.products.product.domain.ProductSearchCriteria;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;

@@ -1,10 +1,9 @@
-package com.products.infrastructure.persistence;
+package com.products.product.infrastructure.persistence;
 
-import com.products.products.domain.Product;
+import com.products.product.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;

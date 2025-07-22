@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1/inventories")
+@RequestMapping("/api/v1")
 @AllArgsConstructor
 public class InventoryPostController {
 

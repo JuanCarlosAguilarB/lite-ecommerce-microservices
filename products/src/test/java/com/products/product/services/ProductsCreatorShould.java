@@ -1,8 +1,7 @@
-package com.products.products.services;
+package com.products.product.services;
 
-import com.products.products.domain.Product;
-import com.products.products.domain.ProductRepository;
-import com.products.services.products.ProductsCreator;
+import com.products.product.domain.Product;
+import com.products.product.domain.ProductRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;

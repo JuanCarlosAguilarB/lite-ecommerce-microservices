@@ -1,6 +1,6 @@
-package com.products.api;
+package com.products.product.api;
 
-import com.products.services.products.ProductsCreator;
+import com.products.product.services.ProductsCreator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;

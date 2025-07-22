@@ -1,9 +1,11 @@
-package com.products.products.domain;
+package com.products.product.domain;
 
 import java.util.UUID;
 
-public class Category {
+public class Brand {
+
     private UUID id;
     private String name;
     private String description;
+
 }

@@ -1,9 +1,9 @@
-package com.products.services.products;
+package com.products.product.services;
 
-import com.products.products.domain.Product;
-import com.products.products.domain.ProductRepository;
-import com.products.products.domain.ProductResponse;
-import com.products.products.domain.ProductSearchCriteria;
+import com.products.product.domain.Product;
+import com.products.product.domain.ProductRepository;
+import com.products.product.domain.ProductResponse;
+import com.products.product.domain.ProductSearchCriteria;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;

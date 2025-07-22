@@ -1,9 +1,7 @@
-package com.products.api;
+package com.products.product.api;
 
-import com.products.products.domain.ProductRepository;
-import com.products.products.domain.ProductResponse;
-import com.products.products.domain.ProductSearchCriteria;
-import com.products.services.products.ProductsFinder;
+import com.products.product.domain.ProductSearchCriteria;
+import com.products.product.services.ProductsFinder;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.List;

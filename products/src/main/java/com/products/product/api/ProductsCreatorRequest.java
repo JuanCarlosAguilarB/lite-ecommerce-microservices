@@ -1,4 +1,4 @@
-package com.products.api;
+package com.products.product.api;
 
 import java.util.UUID;
 

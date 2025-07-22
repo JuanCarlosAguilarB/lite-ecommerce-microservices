@@ -1,4 +1,4 @@
-package com.products.products.domain;
+package com.products.product.domain;
 
 import java.util.UUID;
 

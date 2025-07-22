@@ -1,6 +1,5 @@
-package com.products.products.domain;
+package com.products.product.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
