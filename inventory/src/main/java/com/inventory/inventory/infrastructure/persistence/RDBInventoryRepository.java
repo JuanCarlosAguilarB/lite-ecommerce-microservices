@@ -4,6 +4,7 @@ import com.inventory.inventory.domain.Inventory;
 import com.inventory.inventory.domain.InventoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
+import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
 import org.springframework.stereotype.Repository;
 import reactor.core.publisher.Mono;
@@ -23,8 +24,23 @@ public class RDBInventoryRepository implements InventoryRepository {
     @Override
     public Mono<Void> save(Inventory inventory) {
         InventoryEntity entity = toEntity(inventory);
-        return template.insert(entity).then();
+//        return template.insert(InventoryEntity.class)
+//                .using(entity)
+//                .then();
+
+        return findById(inventory.getId())
+                .flatMap(optionalInventory -> {
+                    if (optionalInventory.isPresent()) {
+                        return update(inventory);
+                    } else {
+                        return template.insert(InventoryEntity.class)
+                                .using(toEntity(inventory))
+                                .then();
+                    }
+                });
     }
+
+
 
     @Override
     public Mono<Optional<Inventory>> findById(UUID id) {
