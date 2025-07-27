@@ -34,7 +34,7 @@ public class ProductsGetController {
                 );
     }
 
-    @GetMapping
+    @GetMapping("/api/v1/products")
     public Mono<ResponseEntity<Map<String, Object>>> searchProducts(
             @RequestParam(required = false) String name,
             @RequestParam(required = false) UUID brandId,
