@@ -25,12 +25,12 @@ public class InventoryPostController {
     public Mono<ResponseEntity<Map<String, String>>> purchase(@RequestBody PurchaseRequest request) {
         if (request.productId() == null || request.quantity() == null) {
             return Mono.just(ResponseEntity.badRequest().body(Map.of(
-                    "error", "Se requiere productId y quantity"
+                    "error", "A product id and quantity is required."
             )));
         }
 
         return purchaseService.purchase(request.productId(), request.quantity())
-                .thenReturn(ResponseEntity.ok(Map.of("message", "Compra realizada exitosamente")))
+                .thenReturn(ResponseEntity.ok(Map.of("message", "Purchase successful")))
                 .onErrorResume(IllegalArgumentException.class, ex ->
                         Mono.just(ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()))))
                 .onErrorResume(IllegalStateException.class, ex ->

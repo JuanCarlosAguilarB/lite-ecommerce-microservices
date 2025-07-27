@@ -27,7 +27,7 @@ public class InventoryPurchaseService {
                 )
                 .flatMap(inventory -> {
                     if (inventory.getQuantity() < quantityToBuy) {
-                        return Mono.error(new IllegalStateException("Stock insuficiente para la compra."));
+                        return Mono.error(new IllegalStateException("Do not have enough stock"));
                     }
 
                     Inventory updatedInventory = inventory.updateQuantity(inventory.getQuantity() - quantityToBuy);
