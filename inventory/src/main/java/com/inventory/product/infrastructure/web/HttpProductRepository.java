@@ -4,6 +4,8 @@ import com.inventory.product.domain.Product;
 import com.inventory.product.domain.ProductGateway;
 import com.inventory.product.domain.ProductNotFoundException;
 import com.inventory.shared.infrastructure.web.WebClientConfig;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -17,19 +19,28 @@ import java.util.concurrent.TimeoutException;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 @Component
+@Slf4j
 public class HttpProductRepository implements ProductGateway {
 
-    private final String baseUrl = "http://localhost:8080";
-    private final WebClient productWebClient;
 
-    public HttpProductRepository(WebClientConfig webClientConfig) {
+//    @Value("${products.url}") //we cannot do it bc values is injected after the constructor execution
+//    private String baseUrl;
+    private final WebClient productWebClient;
+    private final String productByIdPath;
+
+    public HttpProductRepository(WebClientConfig webClientConfig,  @Value("${products.url}") String baseUrl, @Value("${products.endpoint.by-id}")   String productByIdPath) {
         this.productWebClient = webClientConfig.buildWebClient(baseUrl);
+        this.productByIdPath = productByIdPath;
     }
 
     @Override
     public Mono<Product> findById(UUID id) {
+
+        String resolvedPath = productByIdPath.replace("{id}", id.toString());
+        log.info("Calling Product Service URL: {}", resolvedPath);
+
         return productWebClient.get()
-                .uri("/api/v1/products/{id}", id)
+                .uri(resolvedPath)
 //                .retrieve()                                // 4xx/5xx will be exceptions
 //                .bodyToMono(ProductResponse.class)
 //                .map(ProductResponse::toDomain)

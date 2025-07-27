@@ -1,6 +1,7 @@
 package com.inventory.shared.infrastructure.web;
 
 import io.netty.channel.ChannelOption;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -11,6 +12,7 @@ import reactor.netty.http.client.HttpClient;
 import java.time.Duration;
 
 @Configuration
+@Slf4j
 public class WebClientConfig {
 
     private final Duration timeout = Duration.ofSeconds(3);
@@ -24,6 +26,7 @@ public class WebClientConfig {
 
 
     public WebClient buildWebClient(String baseUrl) {
+        log.info("Creating WebClient with base URL: {}", baseUrl);
         return WebClient.builder()
                 .baseUrl(baseUrl)
                 .defaultHeader(HttpHeaders.AUTHORIZATION, "ApiKey " + apiKey)
