@@ -3,6 +3,7 @@ package com.products.product.infrastructure.persistence;
 import com.products.product.domain.Product;
 import com.products.product.domain.ProductRepository;
 import com.products.product.domain.ProductSearchCriteria;
+import lombok.AllArgsConstructor;
 import org.springframework.data.r2dbc.core.R2dbcEntityTemplate;
 import org.springframework.data.relational.core.query.Criteria;
 import org.springframework.data.relational.core.query.Query;
@@ -17,9 +18,10 @@ import static org.springframework.data.relational.core.query.Criteria.where;
 import static org.springframework.data.relational.core.query.Query.query;
 
 @Repository
+@AllArgsConstructor
 public class RDBProductRepository implements ProductRepository {
 
-    R2dbcEntityTemplate template;
+    private final R2dbcEntityTemplate template;
 
     @Override
     public Mono<Void> save(Product product) {

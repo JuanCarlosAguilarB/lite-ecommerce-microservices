@@ -4,6 +4,7 @@ import com.products.product.domain.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
@@ -11,10 +12,11 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("products_entity")
+@Table("products")
 @Getter
 public class ProductEntity {
 
+    @Id
     private UUID id;
     private String name;
     private String description;
